@@ -16,6 +16,13 @@ type Payment interface {
 	DoPayment(amount float64) error
 }
 
+func Pay(p Payment, amount float64) {
+	err := p.DoPayment(amount)
+	if err != nil {
+		fmt.Println("Erreur lors du paiement", err)
+	}
+}
+
 type CreditCardPayment struct {
 	CreditCardNumber int
 }
@@ -41,11 +48,4 @@ type CryptoPayment struct {
 func (crypto CryptoPayment) DoPayment(amount float64) error {
 	fmt.Println("Paiement par crypto", crypto.WalletAddress, ":", amount, "€")
 	return nil
-}
-
-func Pay(p Payment, amount float64) {
-	err := p.DoPayment(amount)
-	if err != nil {
-		fmt.Println("Erreur lors du paiement", err)
-	}
 }
